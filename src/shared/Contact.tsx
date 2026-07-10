@@ -79,7 +79,7 @@ const loadRecaptcha = (siteKey: string) => {
 
 function getFitConfig(): FitConfig {
   // eslint-disable-next-line no-underscore-dangle
-  const cfg = (window as Record<string, FitConfig>).__FIT_CONFIG__ ?? {};
+  const cfg = window.__FIT_CONFIG__ ?? {};
   return {
     ...cfg,
     contactCooldownSeconds:
@@ -241,12 +241,10 @@ function Contact(props: ContactProps) {
     if (fitConfig.captchaProvider === "recaptcha" && fitConfig.captchaSiteKey) {
       try {
         await loadRecaptcha(fitConfig.captchaSiteKey);
-        captchaToken = await window.grecaptcha?.execute(
-          fitConfig.captchaSiteKey,
-          {
+        captchaToken =
+          (await window.grecaptcha?.execute(fitConfig.captchaSiteKey, {
             action: fitConfig.recaptchaAction ?? DEFAULT_RECAPTCHA_ACTION,
-          },
-        );
+          })) ?? "";
       } catch (error) {
         setStatus("idle");
         setSnackbarSeverity("error");

@@ -1,5 +1,5 @@
 /* eslint react/no-unstable-nested-components: off */
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";

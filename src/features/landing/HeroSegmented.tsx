@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   alpha,
@@ -109,6 +109,7 @@ function HeroSegmented() {
               sizes="(max-width: 599px) 100vw, (max-width: 1199px) 90vw, 1200px"
             />
             <img
+              {...({ fetchpriority: "high" } as const)}
               ref={heroImgRef}
               src={heroJpg1600}
               alt="Séance de coaching Fit On The Road en extérieur"
@@ -116,8 +117,6 @@ function HeroSegmented() {
               height={1600}
               decoding="async"
               loading="eager"
-              /* eslint-disable-next-line react/no-unknown-property */
-              fetchpriority="high"
               style={{
                 width: "100%",
                 height: "100%",

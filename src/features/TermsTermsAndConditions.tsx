@@ -1,5 +1,3 @@
-import React from "react";
-
 import { alpha, Box, Container, Typography } from "@mui/material";
 
 function TermsTermsAndConditions() {
