@@ -17,6 +17,7 @@ config/config.json
 config/config.php
 
 node_modules
+coverage
 dist
 dist-ssr
 *.local

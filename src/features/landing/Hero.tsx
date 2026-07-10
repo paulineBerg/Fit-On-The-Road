@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -82,6 +82,7 @@ function Hero() {
             sizes="(max-width: 1200px) 100vw, 100vw"
           />
           <img
+            {...({ fetchpriority: "high" } as const)}
             ref={heroImgRef}
             src={heroJpg1280}
             alt="Séance de coaching Fit On The Road"
@@ -89,9 +90,6 @@ function Hero() {
             height={1600}
             decoding="async"
             loading="eager"
-            // React 18 ne connaît pas encore l'attribut natif fetchpriority en camelCase
-            /* eslint-disable-next-line react/no-unknown-property */
-            fetchpriority="high"
             style={{
               width: "100%",
               height: "100%",

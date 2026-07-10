@@ -1,4 +1,3 @@
-import React from "react";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import {
   Box,
@@ -16,6 +15,11 @@ import type { SxProps, Theme } from "@mui/material/styles";
 type PricingEntreprisesProps = {
   containerSx?: SxProps<Theme>;
   showTitle?: boolean;
+};
+
+const normalizeSx = (sx: SxProps<Theme> | undefined) => {
+  if (!sx) return [];
+  return Array.isArray(sx) ? sx : [sx];
 };
 
 type EnterpriseOffer = {
@@ -59,6 +63,8 @@ function PricingEntreprises({
   containerSx,
   showTitle = true,
 }: PricingEntreprisesProps) {
+  const normalizedContainerSx = normalizeSx(containerSx);
+
   const scrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);
     const offset = 128;
@@ -83,7 +89,7 @@ function PricingEntreprises({
           alignItems: "center",
           gap: { xs: 3, sm: 4 },
         },
-        containerSx,
+        ...normalizedContainerSx,
       ]}
     >
       {showTitle && (

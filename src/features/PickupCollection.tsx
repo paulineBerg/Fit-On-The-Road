@@ -1,4 +1,3 @@
-import React from "react";
 import { alpha, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import BusinessTwoToneIcon from "@mui/icons-material/BusinessTwoTone";

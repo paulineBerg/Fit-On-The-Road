@@ -23,6 +23,11 @@ type PricingParticuliersProps = {
   showTitle?: boolean;
 };
 
+const normalizeSx = (sx: SxProps<Theme> | undefined) => {
+  if (!sx) return [];
+  return Array.isArray(sx) ? sx : [sx];
+};
+
 type ParticularOffer =
   | {
       title: "Cours collectifs";
@@ -70,6 +75,8 @@ function PricingParticuliers({
   containerSx,
   showTitle = true,
 }: PricingParticuliersProps) {
+  const normalizedContainerSx = normalizeSx(containerSx);
+
   const [collectiveCoachingPrice, setCollectiveCoachingPrice] =
     React.useState<CollectivePricing>("unit");
 
@@ -100,7 +107,7 @@ function PricingParticuliers({
           alignItems: "center",
           gap: { xs: 3, sm: 6 },
         },
-        containerSx,
+        ...normalizedContainerSx,
       ]}
     >
       {showTitle && (

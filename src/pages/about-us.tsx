@@ -1,4 +1,3 @@
-import React from "react";
 import PickupCollection from "@features/PickupCollection";
 import { Typography, Box } from "@mui/material";
 import Video from "@features/landing/Video";

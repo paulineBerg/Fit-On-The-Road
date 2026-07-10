@@ -9,12 +9,15 @@
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
       "@helpers/*": ["./src/helpers/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@styles/*": ["./src/styles/*"],
       "@shared/*": ["./src/shared/*"],
 
       "@app/*": ["./src/*"]
     },
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["vite/client", "vitest/globals"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
