@@ -18,7 +18,7 @@ Le nom du repository est indépendant des versions produit.
 
 ## Emplacement WSL du depot
 
-- Controle local du `2026-04-11` : depot verifie sous `/home/surfacepro8/www/FitontheRoad/Fit-On-The-Road` sur le systeme de fichiers Linux WSL (`ext4`).
+- Controle local du `2026-07-12` : depot verifie sous `/home/surfacepro8/www/FitontheRoad` sur le systeme de fichiers Linux WSL (`ext4`).
 - Aucun deplacement n'a ete necessaire : le depot n'est pas stocke sous un montage Windows du type `/mnt/c` ou `/mnt/d`.
 - Regle de maintenance : conserver le depot Git dans `/home/...` pour eviter les lenteurs sur `git status`, `npm`, watchers et autres acces disque intensifs.
 
