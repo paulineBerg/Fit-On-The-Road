@@ -16,6 +16,11 @@ Le nom du repository est indépendant des versions produit.
 - **Version 2 et suivantes** – Développées par Pauline Berg  
   https://github.com/paulineBerg/Fit-On-The-Road
 
+## Emplacement WSL du depot
+
+- Controle local du `2026-04-11` : depot verifie sous `/home/surfacepro8/www/FitontheRoad/Fit-On-The-Road` sur le systeme de fichiers Linux WSL (`ext4`).
+- Aucun deplacement n'a ete necessaire : le depot n'est pas stocke sous un montage Windows du type `/mnt/c` ou `/mnt/d`.
+- Regle de maintenance : conserver le depot Git dans `/home/...` pour eviter les lenteurs sur `git status`, `npm`, watchers et autres acces disque intensifs.
 
 ## 📚 Documentation
 Toute la documentation stratégique et technique est disponible dans le dossier `/docs`.
@@ -102,6 +107,21 @@ Voir :
    - Canonical/OG pointent sur le bon domaine (`VITE_SITE_URL`).
    - CSP dans `public/.htaccess` autorise les domaines nécessaires (GTM/GA, reCAPTCHA, YouTube nocookie).
    - tarteaucitron se charge seulement après interaction et active GTM post-consentement.
+
+## 🚀 Deployment
+
+Le déploiement production est documenté dans :
+
+👉 `/docs/DEPLOYMENT_GUIDE_V3.md`
+
+Voir aussi : `/docs/README_V3_ROADMAP.md`
+
+Processus résumé :
+
+```bash
+npm run build
+npm run deploy:bundle
+```
 
 ## Note de maintenance
 - Mettre à jour ce `README.md` à chaque évolution structurelle (routing, SEO, consentement, formulaire, CI). Pensez à ajouter un `.env.example` si de nouvelles variables sont introduites.

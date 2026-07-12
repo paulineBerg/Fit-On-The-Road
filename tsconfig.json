@@ -10,9 +10,11 @@
       "@models/*": ["./src/models/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@shared/*": ["./src/shared/*"],
+      "@styles/*": ["./src/styles/*"],
 
       "@app/*": ["./src/*"]
     },
+    "types": ["vite/client", "vitest/globals"],
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,

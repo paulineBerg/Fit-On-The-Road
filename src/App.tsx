@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const Layout = lazy(() => import("@pages/_app"));
@@ -64,19 +64,15 @@ export const routes = [
 
 const router = createBrowserRouter(routes, {
   future: {
-    v7_startTransition: true,
+    v7_fetcherPersist: true,
+    v7_relativeSplatPath: true,
   },
 });
 
 function App() {
   return (
     <Suspense fallback={<PageFallback />}>
-      <RouterProvider
-        router={router}
-        future={{
-          v7_startTransition: true,
-        }}
-      />
+      <RouterProvider router={router} />
     </Suspense>
   );
 }

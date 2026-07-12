@@ -14,12 +14,12 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import type { SxProps, Theme } from "@mui/material/styles";
+import type { SxProps } from "@mui/material/styles";
 
 import { CollectivePricing, PrivatePricing } from "@app/types/types";
 
 type PricingParticuliersProps = {
-  containerSx?: SxProps<Theme>;
+  containerSx?: SxProps;
   showTitle?: boolean;
 };
 
@@ -100,7 +100,7 @@ function PricingParticuliers({
           alignItems: "center",
           gap: { xs: 3, sm: 6 },
         },
-        containerSx,
+        ...(containerSx ? [containerSx as object] : []),
       ]}
     >
       {showTitle && (

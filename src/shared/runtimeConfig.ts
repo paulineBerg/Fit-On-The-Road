@@ -5,23 +5,28 @@ import {
   type FitConfig,
 } from "@app/types/config";
 
+declare global {
+  interface Window {
+    __FIT_CONFIG__?: Partial<FitConfig>;
+  }
+}
+
 type EnvDefaults = Partial<FitConfig>;
 
 const applyRuntimeConfig = (envDefaults: EnvDefaults) => {
-  const currentConfig =
-    (window as Record<string, FitConfig>).__FIT_CONFIG__ ?? {};
+  const currentConfig = window.__FIT_CONFIG__ ?? {};
   const merged: FitConfig = {
     contactCooldownSeconds: DEFAULT_CONTACT_COOLDOWN_SECONDS,
     recaptchaAction: DEFAULT_RECAPTCHA_ACTION,
     ...envDefaults,
     ...currentConfig, // runtime overrides (config.js / inline)
   };
-  (window as Record<string, FitConfig>).__FIT_CONFIG__ = merged;
+  window.__FIT_CONFIG__ = merged;
   return merged;
 };
 
 export const getRuntimeConfigSync = (): FitConfig =>
-  (window as Record<string, FitConfig>).__FIT_CONFIG__ ?? {
+  window.__FIT_CONFIG__ ?? {
     contactCooldownSeconds: DEFAULT_CONTACT_COOLDOWN_SECONDS,
     recaptchaAction: DEFAULT_RECAPTCHA_ACTION,
   };

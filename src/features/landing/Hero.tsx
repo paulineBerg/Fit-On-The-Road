@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -17,14 +16,6 @@ import heroWebp1280 from "@assets/images/optimized/overview-1280.webp";
 import heroJpg1280 from "@assets/images/optimized/overview-1280.jpg";
 
 function Hero() {
-  const heroImgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    // React 18 ne passe pas fetchpriority en attribut natif : on le force après le mount
-    if (heroImgRef.current) {
-      heroImgRef.current.setAttribute("fetchpriority", "high");
-    }
-  }, []);
   // #region SCROLLING FUNCTION
   const scrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);
@@ -82,16 +73,13 @@ function Hero() {
             sizes="(max-width: 1200px) 100vw, 100vw"
           />
           <img
-            ref={heroImgRef}
             src={heroJpg1280}
             alt="Séance de coaching Fit On The Road"
             width={1600}
             height={1600}
             decoding="async"
             loading="eager"
-            // React 18 ne connaît pas encore l'attribut natif fetchpriority en camelCase
-            /* eslint-disable-next-line react/no-unknown-property */
-            fetchpriority="high"
+            fetchPriority="high"
             style={{
               width: "100%",
               height: "100%",

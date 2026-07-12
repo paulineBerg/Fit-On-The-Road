@@ -1,5 +1,3 @@
-import React, { useEffect, useRef } from "react";
-
 import {
   alpha,
   Box,
@@ -53,14 +51,6 @@ const trackCta = (audience: Audience, label: string, destination: string) => {
 };
 
 function HeroSegmented() {
-  const heroImgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (heroImgRef.current) {
-      heroImgRef.current.setAttribute("fetchpriority", "high");
-    }
-  }, []);
-
   return (
     <Box
       id="hero"
@@ -109,15 +99,13 @@ function HeroSegmented() {
               sizes="(max-width: 599px) 100vw, (max-width: 1199px) 90vw, 1200px"
             />
             <img
-              ref={heroImgRef}
               src={heroJpg1600}
               alt="Séance de coaching Fit On The Road en extérieur"
               width={1600}
               height={1600}
               decoding="async"
               loading="eager"
-              /* eslint-disable-next-line react/no-unknown-property */
-              fetchpriority="high"
+              fetchPriority="high"
               style={{
                 width: "100%",
                 height: "100%",

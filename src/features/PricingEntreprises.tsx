@@ -1,4 +1,3 @@
-import React from "react";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import {
   Box,
@@ -11,10 +10,10 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import type { SxProps, Theme } from "@mui/material/styles";
+import type { SxProps } from "@mui/material/styles";
 
 type PricingEntreprisesProps = {
-  containerSx?: SxProps<Theme>;
+  containerSx?: SxProps;
   showTitle?: boolean;
 };
 
@@ -83,7 +82,7 @@ function PricingEntreprises({
           alignItems: "center",
           gap: { xs: 3, sm: 4 },
         },
-        containerSx,
+        ...(containerSx ? [containerSx as object] : []),
       ]}
     >
       {showTitle && (
