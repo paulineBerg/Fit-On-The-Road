@@ -33,3 +33,6 @@ dist-ssr
 *.sln
 *.sw?
 docs/
+
+# Temporary multi-AI task handoff
+.ai/CURRENT_TASK.md
