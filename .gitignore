@@ -35,4 +35,4 @@ dist-ssr
 docs/
 
 # Temporary multi-AI task handoff
-.ai/CURRENT_TASK.md
+.ai/CURRENT_TASK*.md
