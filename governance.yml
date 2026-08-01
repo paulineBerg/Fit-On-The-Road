@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0",
+  "governance_version": "2.0.0",
+  "project": {
+    "id": "fit-on-the-road",
+    "name": "Fit On The Road",
+    "type": "website",
+    "purpose": "Développer le site vitrine React de Fit On The Road.",
+    "criticality": "moderate"
+  },
+  "owners": {
+    "business": {
+      "role": "propriétaire métier",
+      "contact_ref": null
+    },
+    "technical": {
+      "role": "mainteneur technique",
+      "contact_ref": null
+    }
+  },
+  "technology": {
+    "languages": [
+      {
+        "name": "TypeScript",
+        "version": "version verrouillée"
+      },
+      {
+        "name": "JavaScript",
+        "version": "ECMAScript moderne"
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "React",
+        "version": "18"
+      },
+      {
+        "name": "Vite",
+        "version": "version verrouillée"
+      }
+    ],
+    "package_managers": [
+      "npm"
+    ]
+  },
+  "architecture": {
+    "styles": [
+      "client-application"
+    ],
+    "components": [
+      {
+        "name": "application",
+        "responsibility": "présenter le contenu public du site",
+        "interfaces": [
+          "site web"
+        ]
+      }
+    ],
+    "interfaces": [
+      "site web"
+    ]
+  },
+  "platforms": {
+    "operating_systems": [
+      "Linux"
+    ],
+    "environments": [
+      "local",
+      "test"
+    ],
+    "containers": false,
+    "cloud": null,
+    "ci_cd": true,
+    "infrastructure_as_code": false
+  },
+  "data": {
+    "categories": [],
+    "personal_data": false,
+    "sensitivity": "internal",
+    "stores": [],
+    "flows": [],
+    "retention_policy": null
+  },
+  "exposure": {
+    "network": "internet",
+    "public_interfaces": [
+      "site"
+    ],
+    "privilege_level": "user"
+  },
+  "risk": {
+    "declared_class": "R2",
+    "criteria": {
+      "exposure": 2,
+      "data": 1,
+      "privileges": 1,
+      "financial": 0,
+      "criticality": 1,
+      "reversibility": 1,
+      "attack_surface": 1,
+      "external_dependencies": 1,
+      "blast_radius": 1
+    },
+    "rationale": "Site public ; les changements restent réversibles dans le dépôt source."
+  },
+  "profiles": {
+    "architecture": [
+      "architecture:client-application"
+    ],
+    "platform": [],
+    "technology": [
+      "technology:typescript-react",
+      "technology:nodejs"
+    ],
+    "data": [],
+    "exposure": [
+      "exposure:public-site"
+    ],
+    "business": []
+  },
+  "commands": {
+    "format": [],
+    "lint": [],
+    "static_analysis": [],
+    "test": [
+      {
+        "id": "test-ci",
+        "run": "npm run test:ci",
+        "blocking": true,
+        "when_missing": "fail",
+        "version_policy": "versions déclarées et verrouillées par le projet",
+        "expected": "code retour 0"
+      }
+    ],
+    "build": [
+      {
+        "id": "build",
+        "run": "npm run build",
+        "blocking": true,
+        "when_missing": "fail",
+        "version_policy": "versions déclarées et verrouillées par le projet",
+        "expected": "code retour 0"
+      }
+    ],
+    "verify": []
+  },
+  "budgets": {},
+  "evidence": {
+    "root": ".governance/evidence",
+    "retention": "selon la politique locale documentée",
+    "formats": [
+      "json",
+      "markdown",
+      "text"
+    ]
+  },
+  "decisions": [],
+  "exceptions": [],
+  "local_rules": [],
+  "extensions": {
+    "x-inventory": {
+      "relation": "dépôt source",
+      "governed_path": "/home/surfacepro8/Workspace/Fit-On-The-Road"
+    }
+  }
+}
