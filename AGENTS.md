@@ -1,6 +1,19 @@
+## Spécialisation locale — Fit On The Road
+
+- Projet : site public React 18, TypeScript et Vite.
+- Sources propres au projet : `README.md` pour l'usage, `governance.yml` pour
+  le contexte machine et `package.json` pour les scripts réellement disponibles.
+- Validations de référence : `npm run test:ci`, puis `npm run build` lorsque le
+  changement touche le comportement ou la livraison statique.
+- Les procédures de déploiement documentées décrivent une méthode ; elles
+  n'accordent aucune autorisation de publication.
+- Le dossier `docs/` est local et ne doit pas être ajouté à Git.
+
 <!-- BEGIN MANAGED MULTI-AI WORKFLOW -->
 ## Workflow multi-IA
 
+- Ce bloc est une projection gérée de `pauline-ai-governance` : le guide central
+  reste l'unique source normative et toute divergence locale doit être corrigée.
 - Lire `.ai/README.md`, `.ai/CURRENT_TASK.md`, les règles applicables et l'état Git avant toute intervention.
 - Classer séparément le routage `A/B/C` et le risque `R0/R1/R2/R3` ; justifier les deux.
 - Attribuer explicitement les rôles utiles : routeur, architecte, auteur/implémentateur, vérificateur, relecteur indépendant et décideur humain.
