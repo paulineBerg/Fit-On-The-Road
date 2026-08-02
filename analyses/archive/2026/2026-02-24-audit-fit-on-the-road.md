@@ -15,10 +15,10 @@ Le nom du repository est indépendant des versions produit.
 
 ### Historique
 
-- **Version 1** – Initiée par Clémence Bergon  
+- **Version 1** – Initiée par Clémence Bergon
   https://github.com/cbergon/Fit-On-The-Road
 
-- **Version 2 et suivantes** – Développées par Pauline Berg  
+- **Version 2 et suivantes** – Développées par Pauline Berg
   https://github.com/paulineBerg/Fit-On-The-Road
 
 
