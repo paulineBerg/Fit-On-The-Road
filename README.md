@@ -1,127 +1,43 @@
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
+
 # Fit On The Road
 
-## Version
+Worktree WSL du site public React 18, TypeScript et Vite de Fit On The Road.
+Il doit rester sur le système de fichiers Linux sous `/home/...`.
 
-Ce repository correspond à la **Version 2 et suivantes** de l'application Fit On The Road.
-
-Le projet suit un **versionnement sémantique** (v1, v2, v3…).
-Le nom du repository est indépendant des versions produit.
-
-### Historique
-
-- **Version 1** – Initiée par Clémence Bergon  
-  https://github.com/cbergon/Fit-On-The-Road
-
-- **Version 2 et suivantes** – Développées par Pauline Berg  
-  https://github.com/paulineBerg/Fit-On-The-Road
-
-## Emplacement WSL du depot
-
-- Controle local du `2026-07-12` : depot verifie sous `/home/surfacepro8/www/FitontheRoad` sur le systeme de fichiers Linux WSL (`ext4`).
-- Aucun deplacement n'a ete necessaire : le depot n'est pas stocke sous un montage Windows du type `/mnt/c` ou `/mnt/d`.
-- Regle de maintenance : conserver le depot Git dans `/home/...` pour eviter les lenteurs sur `git status`, `npm`, watchers et autres acces disque intensifs.
-
-## 📚 Documentation
-Toute la documentation stratégique et technique est disponible dans le dossier `/docs`.
-
-> Note dépôt : le dossier `/docs` est conservé **en local uniquement**. Ne commitez pas de modifications sur ce répertoire ; gardez vos notes/exports hors du suivi Git (Drive, copie locale…).
-
-Voir :
-- Stratégie globale
-- Stratégie B2B
-- Stratégie B2C
-- SEO
-- Guide développement
-- Structure
-- Contribution
-- Github
-
-# Fit On The Road – Rapport d’audit (24 février 2026)
-
-## 📌 Mises à jour (26 février 2026)
-- Homepage (`/`) : title/meta refondus pour Versailles & Yvelines (78), FAQ visible + JSON-LD unique (FAQPage), hiérarchie Hn vérifiée (1 seul H1).
-- Bloc particuliers : FAQ enrichie (coaching à domicile Versailles/SQY, séance découverte, duo, reports).
-- Bundle et sitemap régénérés (`npm run deploy:bundle`).
-- Config runtime non bloquante : bootstrap inline `__FIT_CONFIG__` + `config.js` chargé en idle (plus de JS bloquant le premier paint).
-- Images entreprises responsives (AVIF/WEBP 480/768/1024) avec ratios fixes pour supprimer le CLS et réduire le poids chargé.
-- Accessibilité : skip link « Aller au contenu », `<main id="main-content">` et liens/boutons avec cibles tactiles ≥44px.
-- Perf Lighthouse (prod https://fit-ontheroad.fr, 26/02/2026) : **Desktop 100/92/100/100**, **Mobile 84/96/96/100** (Perf/Access/Best/SEO). Gains principaux : images responsives, lazy in-view, config non bloquante.
-- Version 2 finalisée (socle perf + SEO + A11y) prête pour itérations contenu.
-
-## Stack & structure
-- Vitrine **React 18 + TypeScript** (Vite) avec **Material UI** (thème sombre) et un socle Tailwind léger (`src/styles/index.css`). Stack police passée en **système** (aucune font externe à charger).
-- Routage : `createBrowserRouter` (React Router 6.30) + `Suspense` global dans `src/App.tsx`; pages lazy (`/`, `/entreprises`, `/particuliers`, `/about-us`, `/terms`).
-- Layout global `src/pages/_app.tsx` (ThemeProvider MUI, AppBar/Drawer, Footer). Sections de la landing orchestrées dans `src/pages/index.tsx` avec chargement différé (Contact, PhoneApp, Video, FAQ, etc.).
-- Aliases Vite (`@pages`, `@features`, `@shared`, …) documentés dans `vite.config.ts`; tests Vitest basés sur jsdom (voir liste plus bas).
-- Post-build : `scripts/generate-sitemap.js` génère `public/sitemap.xml`, `public/robots.txt` et `public/llms.txt` à partir de `src/shared/routes.config.json` (`SITE_URL` surcharge le domaine), puis **prerender** des routes marquées `prerender:true` et **inline critical CSS** (Critters via `scripts/inline-critical.cjs`).
-
-## Intégrations et langage
-- **SEO** : balises meta/OG/Twitter complètes dans `index.html`; JSON-LD Organization + SportsActivityLocation + FAQ ; composant `Seo` pour les pages avec URL canonique figée sur `https://fit-ontheroad.fr`.
-- **Consentement / tracking** : tarteaucitron chargé après interaction (fallback 6 s) via script inline + init dédiée `public/assets/js/tarteaucitronInit.js`. GTM n’est activé qu’après opt-in et uniquement si un ID est fourni (priorité à `public/config.js` puis `VITE_GTM_ID`). Preconnect Google ajouté au moment du consentement.
-- **Formulaire** : `src/shared/Contact.tsx` appelle un endpoint HTTP configurable (`contactEndpoint` via `public/config.js` ou variables Vite), avec retour 2xx/4xx, honeypot, cooldown client, reCAPTCHA v3 optionnel et validation message (requis ≥ 5 caractères).
-- **Médias** : Hero en AVIF/WEBP multi-tailles + jpg fallback, vidéo YouTube nocookie en “click-to-play”, autres visuels souvent en JPEG + source WebP via `WebpPicture`.
-- **Performance** : CSS critique inliné post-build (Critters) + bundle CSS préchargé; stack police système; Hero `fetchpriority=high`, images max 1280w + `decoding="async"`; `WebpPicture` force AVIF/WEBP/JPEG avec `loading="lazy"`.
-
-## Points forts
-- Architecture claire par domaines (`features/`, `pages/`, `layouts/`, `shared/`) avec alias explicites et thème MUI centralisé.
-- Landing structurée (Hero → offres Entreprises/Particuliers → Video → Highlights → Pricing → Testimonials → FAQ/Contact) avec chargement progressif et CTA cohérents.
-- SEO prêt production (meta, JSON-LD, sitemap/robots/llms) + vidéos/YouTube encapsulées pour limiter le JS initial.
-- Accessibilité travaillée (contrastes MUI, navigation clavier sur Drawer, images optimisées avec `alt`, focus state sur CTA principaux).
-
-## Points de vigilance / risques
-- **Consentement** : dépend d’une config correcte (`public/config.js` ou variables Vite). Ajouter un test d’intégration pour vérifier l’absence d’appels *.google* avant opt-in.
-- **Formulaire contact** : endpoint PHP `api/contact.php` (valide, captcha, rate-limit, honeypot) qui envoie via `mail()` ou SMTP IONOS (config privée `config/config.php` ou env) et logue dans `logs/contact.log` (email haché). Vérifier la clé reCAPTCHA (secret en env ou `config/config.php`), l’URL d’API et les emails `from`/`to` sur chaque environnement.
-- **SEO multi-env** : `Seo.tsx` impose le domaine production; prévisualisations/staging publieront des canonicals/og:url faux si non patchés.
-- **Tests/qualité** : CI active mais pas encore de tests e2e; surveiller les futures évolutions React Router (warnings v7 flag).
-- **Médias** : quelques JPEG lourds subsistent (sections entreprises/particuliers) — à re-comprimer si besoin.
-
-## TODO améliorations (priorisées)
-1) **SEO réel / pré-rendu SPA** : ✅ en place – prerender post-build des routes marquées `prerender:true` dans `src/shared/routes.config.json`; canonical statique retiré d’`index.html`. Garder `routes.config.json` comme source de vérité et ajuster si de nouvelles pages arrivent.
-2) **Domaine & canonicals configurables** : ✅ `SITE_URL` (Seo.tsx) prend `VITE_SITE_URL` ou `window.location.origin`; variable ajoutée dans `.env.example`. Mettre `VITE_SITE_URL` par env (prod/staging/dev) pour des canonicals/og:url corrects.
-3) **Consentement renforcé** : ✅ `preconnect` Google déplacés post-opt-in, GTM activé uniquement si `gtmId` est fourni (`public/config.js` prioritaire puis `VITE_GTM_ID`), privacyUrl dérivée de `siteUrl`, fallback “GTM off” si ID manquant. Ancien doublon supprimé (source publique unique).
-4) **Formulaire fiable & anti-spam** : ✅ en place – endpoint HTTP (`contactEndpoint` → `/api/contact.php` par défaut) avec retours 2xx/4xx, honeypot + cooldown client et rate-limit serveur, reCAPTCHA v3 optionnel, validation message requise (≥5 caractères), mailto encodé et `ToggleButtonGroup` tolère `null`.
-5) **Médias & performance** : ✅ JPEG marketing convertis en AVIF/WEBP (sources `src/assets/images/*`), images hors above-the-fold avec dimensions explicites + `loading="lazy"` + `decoding="async"` via `WebpPicture`, CSS critique inliné (Critters) et pile de polices système.
-10) **Consent Mode v2 & tarteaucitron** : ✅ tarteaucitron mis à jour en 1.30.0 (FR/EN uniquement), init dédié (`public/assets/js/tarteaucitronInit.js`) force le consent mode v2 (ad_storage, analytics_storage, ad_user_data, ad_personalization à denied par défaut, maj après opt-in), cache long 1 an sur `/assets/js/tarteaucitronjs/*`.
-6) **Qualité / CI** : ✅ `.env.production` retiré, seul `.env.example` reste versionné ; ✅ CI GitHub Actions ajoutée (`.github/workflows/ci.yml`) avec `npm ci → lint → test:ci → build` ; ✅ Vitest étendu (routing, Helmet/SEO, sections clés, validations Contact).
-7) **Sécurité HTTP** : ✅ Headers livrés côté Apache (`public/.htaccess`) : CSP adaptée (YouTube nocookie, GTM post-consentement, reCAPTCHA, MUI inline), Referrer-Policy, Permissions-Policy, X-Content-Type-Options, X-Frame-Options; HSTS prêt à activer sur prod HTTPS.
-8) **Dette & hygiène repo** : ✅ `dist/` déjà ignoré (.gitignore) et aucun artefact build suivi (`git ls-files dist` vide). À planifier : montée de versions pour supprimer les patches (répertoire `patches/`) et nettoyer les dépendances legacy.
-9) **Accessibilité** : ✅ `<h1>` masqué retiré d’`index.html` (le H1 est déjà rendu côté React dans le Hero).
-
-## Notes utiles
-- Thème MUI : `src/styles/theme-material/style.ts` (palette sombre #ed130d/#8b725d). Tailwind sert surtout de reset utilitaire.
-- Navigation : AppBar sticky (`src/layouts/AppAppBar.tsx`) avec scroll lissé et Drawer mobile; Footer simple.
-- Tests présents (Vitest/jsdom) : `landing.test.tsx`, `home-sections.test.tsx`, `routing.test.tsx`, `seo.test.tsx`, `contact.test.tsx`. Pas d’e2e.
-- Routes source de vérité : `src/shared/routes.config.json` alimente à la fois sitemap/robots/llms et le prerender; mettre à jour cette liste en ajoutant/supprimant des pages.
-- Génération d’assets robots/sitemap/llms + prerender + inline-critical : `npm run build` (postbuild enchaîne sitemap → prerender → inline-critical).
-
-## Déploiement (build statique Vite)
-1) Installer les dépendances : `npm ci`
-2) Définir les variables (exemple `.env.production` non versionné) :
-   - `VITE_SITE_URL=https://fit-ontheroad.fr`
-   - `VITE_GTM_ID=` (optionnel, sinon config dans `public/config.js`)
-3) Build : `npm run build`
-   - Génère `dist/` avec sitemap/robots/llms + prerender + CSS critique inliné.
-4) Publier `dist/` sur l’hébergeur (Apache) en conservant `dist/.htaccess` et `dist/assets/js/tarteaucitronjs/*` (cache long).
-5) Vérifier après déploiement :
-   - Canonical/OG pointent sur le bon domaine (`VITE_SITE_URL`).
-   - CSP dans `public/.htaccess` autorise les domaines nécessaires (GTM/GA, reCAPTCHA, YouTube nocookie).
-   - tarteaucitron se charge seulement après interaction et active GTM post-consentement.
-
-## 🚀 Deployment
-
-Le déploiement production est documenté dans :
-
-👉 `/docs/DEPLOYMENT_GUIDE_V3.md`
-
-Voir aussi : `/docs/README_V3_ROADMAP.md`
-
-Processus résumé :
+## Démarrage local
 
 ```bash
-npm run build
-npm run deploy:bundle
+npm ci
+npm run dev
 ```
 
-## Note de maintenance
-- Mettre à jour ce `README.md` à chaque évolution structurelle (routing, SEO, consentement, formulaire, CI). Pensez à ajouter un `.env.example` si de nouvelles variables sont introduites.
+## Validations
+
+```bash
+npm run test:ci
+npm run build
+```
+
+`npm run build` génère également les ressources SEO, le pré-rendu et le CSS
+critique au moyen du `postbuild` déclaré dans `package.json`.
+
+## Configuration et documentation
+
+- Utiliser `.env.example` comme modèle et ne jamais versionner les valeurs
+  sensibles.
+- `src/shared/routes.config.json` est la source des routes utilisées par le
+  sitemap et le pré-rendu.
+- Le dossier `docs/` est conservé localement et ne doit pas être ajouté à Git.
+- Les règles applicables aux agents sont dans `AGENTS.md` et le contexte machine
+  dans `governance.yml`.
+
+La procédure de livraison détaillée reste dans `docs/DEPLOYMENT_GUIDE_V3.md` et
+la feuille de route dans `docs/README_V3_ROADMAP.md`. Ces documents décrivent
+une méthode et ne constituent jamais une autorisation de déploiement.
+
+## Historique
+
+- Version 1 : dépôt initial de Clémence Bergon.
+- Version 2 et suivantes : dépôt maintenu par Pauline Berg.
+- [Audit des 24–26 février 2026](analyses/archive/2026/2026-02-24-audit-fit-on-the-road.md).
