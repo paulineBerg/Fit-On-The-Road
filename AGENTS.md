@@ -3,6 +3,16 @@
 ## Périmètre
 
 - Racine projet: `/home/surfacepro8/www/FitontheRoad`.
+- Hébergement : IONOS ; ce projet est hors périmètre de l'hébergement OVH
+  inventorié dans les travaux de migration PHP/MySQL.
+
+## Frontière d'hébergement et de livraison
+
+- Ne pas associer Fit On The Road à une bascule, un Manager ou un déploiement
+  OVH.
+- Toute action sur le Manager IONOS ou tout déploiement IONOS exige une demande
+  humaine distincte qui nomme explicitement l'environnement et la cible ; les
+  validations et autorisations de production centrales restent applicables.
 
 ## Héritage documentaire
 

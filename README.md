@@ -36,6 +36,14 @@ La procédure de livraison détaillée reste dans `docs/DEPLOYMENT_GUIDE_V3.md` 
 la feuille de route dans `docs/README_V3_ROADMAP.md`. Ces documents décrivent
 une méthode et ne constituent jamais une autorisation de déploiement.
 
+## Hébergement et frontière de livraison
+
+Fit On The Road est hébergé chez **IONOS**. Il ne fait pas partie du périmètre
+OVH suivi pour les migrations PHP ou MySQL ; aucune bascule ou livraison OVH ne
+doit donc le viser. Une intervention sur le Manager ou l'hébergement IONOS
+requiert une demande humaine distincte identifiant précisément l'environnement
+et la cible, puis les validations de livraison applicables.
+
 ## Historique
 
 - Version 1 : dépôt initial de Clémence Bergon.
