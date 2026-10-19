@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "governance_version": "2.0.0",
+  "governance_version": "2.5.0",
   "project": {
     "id": "fit-on-the-road-worktree",
     "name": "Fit On The Road — worktree web",
@@ -107,8 +107,9 @@
     "architecture": [
       "architecture:client-application"
     ],
-    "platform": [],
+    "platform": ["platform:operating-systems"],
     "technology": [
+      "technology:javascript",
       "technology:typescript-react",
       "technology:nodejs"
     ],
@@ -125,6 +126,15 @@
     "test": [
       {
         "id": "test-ci",
+        "requirements": ["TEST-001"],
+        "gates": ["G1", "G2", "G5"],
+        "workdir": ".",
+        "allowed_env": ["CI"],
+        "timeout_seconds": 600,
+        "preconditions": ["Dépendances locales installées selon package-lock.json ; aucun service de production connecté."],
+        "evidence": ["Version Node/npm, commande, code retour et résumé Vitest sans données sensibles."],
+        "network": "local",
+        "danger": "writes-local",
         "run": "npm run test:ci",
         "blocking": true,
         "when_missing": "fail",
@@ -135,6 +145,15 @@
     "build": [
       {
         "id": "build",
+        "requirements": ["TEST-001"],
+        "gates": ["G2", "G5"],
+        "workdir": ".",
+        "allowed_env": ["CI", "NODE_ENV"],
+        "timeout_seconds": 600,
+        "preconditions": ["Dépendances verrouillées présentes ; scripts build/postbuild relus ; aucun déploiement inclus."],
+        "evidence": ["Version Node/npm, code retour, résumé build/postbuild et contrôles SEO locaux."],
+        "network": "conditional",
+        "danger": "build-artifact",
         "run": "npm run build",
         "blocking": true,
         "when_missing": "fail",

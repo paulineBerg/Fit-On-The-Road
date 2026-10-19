@@ -38,6 +38,13 @@ une méthode et ne constituent jamais une autorisation de déploiement.
 
 ## Hébergement et frontière de livraison
 
+Qualification locale du 19 octobre 2026 : les fichiers PHP du contact passent
+le lint PHP 8.5.4 ; GET est refusé (405) et OPTIONS répond 204, sans envoi de
+mail. Le POST nominal et le runtime IONOS restent à qualifier avant une
+éventuelle migration propre à cet hébergement. Le manifeste de gouvernance
+décrit désormais les préconditions, effets et preuves des commandes ; sa
+validation n'exécute ni tests, ni build, ni déploiement.
+
 Fit On The Road est hébergé chez **IONOS**. Il ne fait pas partie du périmètre
 OVH suivi pour les migrations PHP ou MySQL ; aucune bascule ou livraison OVH ne
 doit donc le viser. Une intervention sur le Manager ou l'hébergement IONOS
