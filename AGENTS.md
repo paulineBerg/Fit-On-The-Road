@@ -83,5 +83,6 @@ Le workflow, le modèle de tâche et les prompts sont lus directement dans
 modification ou livraison, créer ou mettre à jour `.ai/CURRENT_TASK.md` dans le
 présent projet. Ses transmissions terminées vont dans
 `.ai/archive/transmissions/YYYY/MM/` du même projet selon la procédure centrale
-`../../Workspace/pauline-ai-governance/.ai/ARCHIVAGE_DOCUMENTS_SOURCE.md`.
+`../../Workspace/pauline-ai-governance/guide-architecture/core/11-documentation.md`, section
+« Archivage des documents source et preuves ».
 <!-- END MANAGED CENTRAL GUIDE -->
